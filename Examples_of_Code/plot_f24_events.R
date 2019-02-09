@@ -6,39 +6,74 @@
 # This example uses ggsoccer to plot a set of passes onto a soccer pitch.
 
 library(ggplot2)
-
+library(ggsoccer)
+library(dplyr)
 library(RCurl)
+
 myCsv <- getURL("https://raw.githubusercontent.com/davidfombella/Parse_OptaF24_Feed_Soccer/master/Generated_files/goal_data_Bolton%20Wanderers_Manchester%20City.csv")
 goals <- read.csv(textConnection(myCsv))
 
-library(ggsoccer)
+passes <- read.csv(textConnection(getURL("https://raw.githubusercontent.com/davidfombella/Parse_OptaF24_Feed_Soccer/master/Generated_files/pass_data_Bolton%20Wanderers_Manchester%20City.csv")))
 
 
+# GOALS
 
 ggplot(goals) +
   annotate_pitch(colour = "gray70", fill = "gray90") +
-  geom_point(aes(x = x, y = y, fill=team), size = 4,  pch = 21) +
+  geom_point(aes(x = x, y = y, colour=team,shape=body.part), size = 4) +
+  geom_text(aes(x = x, y = y,label=player,hjust=0.2, vjust=0.3))+
   theme_pitch() +
   direction_label() +
-  ggtitle("F24", "ggsoccer shots")
+  ggtitle("Bolton Wanderers 2 - 3 Manchester City", "Sun 11 Aug 2011")
+
+# GOALS ggREPEL
+
+ggplot(goals) +
+  annotate_pitch(colour = "gray70", fill = "gray90") +
+  geom_point(aes(x = x, y = y, colour=team,shape=body.part), size = 4) +
+  geom_text_repel(aes(x = x, y = y,label=player)) +
+  theme_pitch() +
+  direction_label() +
+  ggtitle("Bolton Wanderers 2 - 3 Manchester City", "Sun 11 Aug 2011")
 
 
 
-pass_data <- data.frame(x = c(24, 18, 64, 78, 53),
-                        y = c(43, 55, 88, 18, 44),
-                        x2 = c(34, 44, 81, 85, 64),
-                        y2 = c(40, 62, 89, 44, 28))
+# GOALS SHOT MAP
+
+ggplot(goals) +
+  annotate_pitch(colour = "gray70", fill = "gray90") +
+  geom_point(aes(x = x, y = y,colour=team,shape=body.part), size = 4) +
+  theme_pitch()+
+  coord_flip(xlim = c(50, 101), ylim = c(-1, 101))+
+  ggtitle("Shotmap", "EPL ")+theme_classic()
 
 
-ggplot(df) +
+# GOALS SHOT MAP
+ggplot(goals) +
+  annotate_pitch(colour = "gray70", fill = "gray90") +
+  geom_point(aes(x = x, y = y,colour=team,shape=body.part), size = 4) +
+  theme_pitch()+
+  coord_flip()+
+  scale_y_reverse()+
+  ggtitle("Shotmap", "EPL ")+theme_classic()
+
+
+
+# Passes
+
+passes %>%
+  dplyr::filter(player=="David Silva")%>%
+  ggplot() +
   annotate_pitch() +
-  geom_segment(aes(x = x, y = y, xend = x2, yend = y2),
+  geom_segment(aes(x = x, y = y, xend = x_end, yend = y_end,colour=as.factor(outcome)),size=0.5,
    arrow = arrow(length = unit(0.25, "cm"),type = "closed")) +
   theme_pitch() +
   direction_label() +
-  ggtitle("Passmap", "ggsoccer example")
+  ggtitle("David Silva Passes", "EPL 2011 vs Bolton")
 
 
+
+unique(passes$pass.zone)
 # Because ggsoccer is implemented as ggplot layers, it makes customising a plot very easy.
 # Here is a different example, plotting shots on a **gray** pitch.
 
@@ -57,7 +92,7 @@ ggplot(shots) +
   geom_point(aes(x = x, y = y),  fill = "white", size = 4,  pch = 21) +
   theme_pitch()+
   coord_flip(xlim = c(49, 101), ylim = c(-1, 101))+
-  ggtitle("Shotmap", "ggsoccer shots")
+  ggtitle("Shotmap", "EPL ")
 
 
 ### StatsBomb data
