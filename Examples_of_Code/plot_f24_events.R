@@ -153,7 +153,46 @@ ggplot(goals) +
   )
 
 
+#############################
+# goalmouth 4 white background
+##############################
+
+ggplot(goals) +
+  ggplot2::annotate( "segment", x= 55.8 , xend = 55.8,y= 0 , yend = 42 , colour = "black",size = 5)+
+  ggplot2::annotate( "segment", x= 51.8 , xend = 51.8,y= 0 , yend = 42 , colour = "black",size = 0.5,linetype = "dashed")+
+  ggplot2::annotate( "segment", x= 48.2 , xend = 48.2,y= 0 , yend = 42 , colour = "black",size = 0.5,linetype = "dashed")+
+  ggplot2::annotate( "segment", x= 45.2 , xend = 55.8,y= 20 , yend = 20 , colour = "black",size = 0.5,linetype = "dashed")+
+  ggplot2::annotate( "segment", x= 45.2 , xend = 45.2,y= 0 , yend = 42 , colour = "black",size = 5)+
+  ggplot2::annotate( "segment", x= 45.2 , xend = 55.8,y= 41.6 , yend = 41.6 , colour = "black",size = 5)+
+  ggplot2::annotate( "segment", x= 45.2 , xend = 55.8,y= 0 , yend = 0 , colour = "black",size = 1)+
+  ggplot2::annotate("text", x = 54, y = 30,  label = "High Left", colour = "black")+
+  ggplot2::annotate("text", x = 50, y = 30,  label = "High Centre", colour = "black")+
+  ggplot2::annotate("text", x = 47, y = 30,  label = "High Right", colour = "black")+
+  ggplot2::annotate("text", x = 54, y = 10,  label = "Low Left", colour = "black")+
+  ggplot2::annotate("text", x = 50, y = 10,  label = "Low Centre", colour = "black")+
+  ggplot2::annotate("text", x = 47, y = 10,  label = "Low Right", colour = "black")+
+  geom_point(aes(x = goalmouth.y, y = goalmouth.z,colour=team,shape=body.part), size = 6) +
+  geom_text_repel(aes(x = goalmouth.y, y = goalmouth.z,label=player,colour=team)) +
+  scale_x_reverse( )+
+  #scale_x_continuous(limits = c(40, 60))+
+  ggtitle("Goalmouth Bolton Wanderers 2 - 3 Man. City", "Sun 11 Aug 2011")+
+  theme(plot.background = element_rect(fill = "white"),
+        panel.background = element_rect(fill = "white",colour = "white",  size = 0.5, linetype = "solid"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.title.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank()
+  )
+
+
+
+###################
 # GOALS SHOT MAP
+###################
 # Bug in coord flip, required to to 100-y on y coord
 ggplot(goals) +
   annotate_pitch(colour = "gray70", fill = "gray90") +
