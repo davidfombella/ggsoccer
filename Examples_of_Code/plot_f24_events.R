@@ -165,13 +165,13 @@ ggplot(goals) +
   ggplot2::annotate( "segment", x= 45.2 , xend = 45.2,y= 0 , yend = 42 , colour = "black",size = 5)+
   ggplot2::annotate( "segment", x= 45.2 , xend = 55.8,y= 41.6 , yend = 41.6 , colour = "black",size = 5)+
   ggplot2::annotate( "segment", x= 45.2 , xend = 55.8,y= 0 , yend = 0 , colour = "black",size = 1)+
-  ggplot2::annotate("text", x = 54, y = 30,  label = "High Left", colour = "black")+
-  ggplot2::annotate("text", x = 50, y = 30,  label = "High Centre", colour = "black")+
-  ggplot2::annotate("text", x = 47, y = 30,  label = "High Right", colour = "black")+
-  ggplot2::annotate("text", x = 54, y = 10,  label = "Low Left", colour = "black")+
-  ggplot2::annotate("text", x = 50, y = 10,  label = "Low Centre", colour = "black")+
-  ggplot2::annotate("text", x = 47, y = 10,  label = "Low Right", colour = "black")+
-  geom_point(aes(x = goalmouth.y, y = goalmouth.z,colour=team,shape=body.part), size = 6) +
+  ggplot2::annotate("text", x = 54, y = 30,  label = "High Left", colour = "black", size = 5)+
+  ggplot2::annotate("text", x = 50, y = 30,  label = "High Centre", colour = "black", size = 5)+
+  ggplot2::annotate("text", x = 47, y = 30,  label = "High Right", colour = "black", size = 5)+
+  ggplot2::annotate("text", x = 54, y = 10,  label = "Low Left", colour = "black", size = 5)+
+  ggplot2::annotate("text", x = 50, y = 10,  label = "Low Centre", colour = "black", size = 5)+
+  ggplot2::annotate("text", x = 47, y = 10,  label = "Low Right", colour = "black", size = 5)+
+  geom_point(aes(x = goalmouth.y, y = goalmouth.z,colour=team,shape=body.part), size = 7) +
   geom_text_repel(aes(x = goalmouth.y, y = goalmouth.z,label=player,colour=team)) +
   scale_x_reverse( )+
   #scale_x_continuous(limits = c(40, 60))+
